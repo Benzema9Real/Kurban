@@ -1,6 +1,7 @@
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.permissions import AllowAny
 
-# from .filter import AnimeFilter
+from .filter import AnimeFilter
 from .models import Genre, Episode, Anime
 from rest_framework import generics
 from rest_framework.response import Response
@@ -52,9 +53,9 @@ class EpisodeDetailView(generics.RetrieveAPIView):
         anime_slug = self.kwargs.get('anime_slug')  # Слаг аниме
         return self.queryset.filter(anime__slug=anime_slug)
 
-# class AnimeSearchView(generics.ListAPIView):
-#     queryset = Anime.objects.all()
-#     serializer_class = AnimeSerializer
-#     permission_classes = [AllowAny]
-#     filter_backends = (DjangoFilterBackend,)
-#     filterset_class = AnimeFilter
+class AnimeSearchView(generics.ListAPIView):
+    queryset = Anime.objects.all()
+    serializer_class = AnimeSerializer
+    permission_classes = [AllowAny]
+    filter_backends = (DjangoFilterBackend,)
+    filterset_class = AnimeFilter
